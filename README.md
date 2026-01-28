@@ -137,11 +137,10 @@ web_scraper_project/
 ├── main.py                     # Interactive menu launcher
 ├── main_wikipedia.py           # Wikipedia scraper
 ├── main_quotes.py              # Quotes scraper (JS-rendered)
-├── test_quotes_requests.py     # Demo: Why Selenium is needed
 │
 ├── .gitignore                  # Git ignore rules
 ├── requirements.txt            # Python dependencies
-└── README.md                   # This file
+└── README.md                   # 
 ```
 
 ---
