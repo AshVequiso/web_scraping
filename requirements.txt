@@ -1,0 +1,15 @@
+# Web Scraping Dependencies
+selenium==4.16.0
+beautifulsoup4==4.12.2
+lxml==4.9.3
+
+# Data Processing
+pandas==2.1.4
+numpy==1.26.2
+
+# Utilities
+python-dotenv==1.0.0
+requests==2.31.0
+
+# WebDriver Management
+webdriver-manager==4.0.1
