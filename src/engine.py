@@ -33,13 +33,10 @@ def load_page(driver, url):
 def load_page_quotes(driver, url):
     driver.get(url)
     
-    # Wait for the quotes to be rendered by JavaScript
-    # This is the KEY difference - without Selenium, you wouldn't see any quotes!
     WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CLASS_NAME, "quote"))
     )
     
-    # Optional: Wait a bit longer to ensure all quotes are loaded
     WebDriverWait(driver, 10).until(
         EC.presence_of_all_elements_located((By.CLASS_NAME, "quote"))
     )

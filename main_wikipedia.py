@@ -11,19 +11,18 @@ def main():
     try:
         print(f"Loading Wikipedia page: {WIKIPEDIA_URL}")
         
-        # Use requests instead of Selenium for static content
+
         headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
         response = requests.get(WIKIPEDIA_URL, headers=headers)
-        response.raise_for_status()  # Raise error for bad status codes
+        response.raise_for_status()
         
         html = response.text
         print(f"Page loaded. HTML length: {len(html)}")
         
-        # Extract the first table (HTML parsed only once)
+        # Extract the first table 
         table_data = get_wikipedia_table(html, table_index=0)
         
-        # Or extract all tables (HTML parsed only once):
-        # table_data = parse_all_wikipedia_tables(html)
+        # Or extract all tables 
         
         all_data.extend(table_data)
         print(f"Successfully extracted {len(table_data)} rows from Wikipedia table")
