@@ -1,23 +1,7 @@
 from bs4 import BeautifulSoup
 import pandas as pd
 
-def parse_wikipedia_table(html, table_index=0):
-
-    soup = BeautifulSoup(html, "html.parser")
-    
-    # Find all tables with class 'wikitable'
-    tables = soup.find_all("table", class_="wikitable")
-    
-    if not tables:
-        print("No wikitable found on this page")
-        return []
-    
-    if table_index >= len(tables):
-        print(f"Table index {table_index} out of range. Found {len(tables)} tables.")
-        table_index = 0
-    
-    table = tables[table_index]
-    
+def parse_wikipedia_table(table):
     # Extract headers
     headers = [th.text.strip() for th in table.find_all("th")]
     
@@ -36,20 +20,41 @@ def parse_wikipedia_table(html, table_index=0):
     return rows
 
 def parse_all_wikipedia_tables(html):
+
     soup = BeautifulSoup(html, "html.parser")
     tables = soup.find_all("table", class_="wikitable")
     
     print(f"Found {len(tables)} wikitable(s) on the page")
     
+    if not tables:
+        print("No wikitable found on this page")
+        return []
+    
     all_data = []
     for idx, table in enumerate(tables):
-        table_data = parse_wikipedia_table(html, table_index=idx)
+        # Pass the table object directly, not HTML
+        table_data = parse_wikipedia_table(table)
         # Add table number to each row
         for row in table_data:
             row["table_number"] = idx
         all_data.extend(table_data)
     
     return all_data
+
+def get_wikipedia_table(html, table_index=0):
+    soup = BeautifulSoup(html, "html.parser")
+    tables = soup.find_all("table", class_="wikitable")
+    
+    if not tables:
+        print("No wikitable found on this page")
+        return []
+    
+    if table_index >= len(tables):
+        print(f"Table index {table_index} out of range. Found {len(tables)} tables.")
+        table_index = 0
+    
+    # Pass the table object directly
+    return parse_wikipedia_table(tables[table_index])
 
 def parse_quotes(html):
     soup = BeautifulSoup(html, "html.parser")
@@ -79,7 +84,7 @@ def parse_quotes(html):
         quotes.append({
             "text": text,
             "author": author,
-            "tags": ", ".join(tags)  # Join tags as comma-separated string
+            "tags": ", ".join(tags)
         })
     
     return quotes
