@@ -48,8 +48,8 @@ logs/*.log
 Thumbs.db
 
 # Data (optionally track processed data)
-data/raw/*.csv
-data/raw/*.json
+data/raw/
+data/processed/
 
 # WebDriver
 chromedriver
